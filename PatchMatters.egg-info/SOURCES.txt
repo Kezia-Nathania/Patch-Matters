@@ -1,0 +1,6 @@
+README.md
+setup.py
+PatchMatters.egg-info/PKG-INFO
+PatchMatters.egg-info/SOURCES.txt
+PatchMatters.egg-info/dependency_links.txt
+PatchMatters.egg-info/top_level.txt

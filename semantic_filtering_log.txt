@@ -1,0 +1,918 @@
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is located on the side of the road.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is located on the side of the road.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is located on the side of the road.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is located on the side of the road.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is located on the side of the road.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is located on the side of the road.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is situated on the side of the road, visible to passing traffic.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a semi truck is present"
+
+For Contradictory Descriptions:
+- ["a white truck trailer" (Description 1), "a semi truck with a sign on the side of it" (Description 2)]
+
+For Unique Descriptions:
+- "a smaller white truck trailer" (Description 1)
+Reliable list: ['a semi truck is present', 'a white truck trailer', 'a smaller white truck trailer']
+Similarities contra: [[0.495239719748497, 0.4710839092731476]]
+Similarities unique: [0.4279225468635559]
+Final Caption: A semi truck is present, featuring a white truck trailer attached to it, with a sign on the side of the truck.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a truck is present"
+
+For Contradictory Descriptions:
+- ["a smaller white truck" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['a truck is present', 'a smaller white truck']
+Similarities contra: [[0.3512802720069885, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck is present.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is located on the side of the road.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is located on the side of the road.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is located on the side of the road.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is situated on the side of the road, visible to passing traffic.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a semi truck is present"
+
+For Contradictory Descriptions:
+- ["a white truck trailer" (Description 1), "a semi truck with a sign on the side of it" (Description 2)]
+
+For Unique Descriptions:
+- "a smaller white truck trailer" (Description 1)
+Reliable list: ['a semi truck is present', 'a white truck trailer', 'a smaller white truck trailer']
+Similarities contra: [[0.495239719748497, 0.4710839092731476]]
+Similarities unique: [0.4279225468635559]
+Final Caption: A semi truck is present, featuring a white truck trailer attached to it, with a sign on the side of the truck.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a truck is present"
+
+For Contradictory Descriptions:
+- ["a smaller white truck" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['a truck is present', 'a smaller white truck']
+Similarities contra: [[0.3512802720069885, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck is present.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is located on the side of the road.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is situated on the side of the road, visible to passing traffic.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a semi truck is present"
+
+For Contradictory Descriptions:
+- ["a white truck trailer" (Description 1), "a semi truck with a sign on the side of it" (Description 2)]
+
+For Unique Descriptions:
+- "a smaller white truck trailer" (Description 1)
+Reliable list: ['a semi truck is present', 'a white truck trailer', 'a smaller white truck trailer']
+Similarities contra: [[0.495239719748497, 0.4710839092731476]]
+Similarities unique: [0.4279225468635559]
+Final Caption: A semi truck is present, featuring a white truck trailer attached to it, with a sign on the side of the truck.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a truck is present"
+
+For Contradictory Descriptions:
+- ["a smaller white truck" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['a truck is present', 'a smaller white truck']
+Similarities contra: [[0.3512802720069885, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck is present.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is located on the side of the road.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is situated on the side of the road, visible to passing traffic.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a semi truck is present"
+
+For Contradictory Descriptions:
+- ["a white truck trailer" (Description 1), "a semi truck with a sign on the side of it" (Description 2)]
+
+For Unique Descriptions:
+- "a smaller white truck trailer" (Description 1)
+Reliable list: ['a semi truck is present', 'a white truck trailer', 'a smaller white truck trailer']
+Similarities contra: [[0.495239719748497, 0.4710839092731476]]
+Similarities unique: [0.4279225468635559]
+Final Caption: A semi truck is present, featuring a white truck trailer attached to it, with a sign on the side of the truck.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a truck is present"
+
+For Contradictory Descriptions:
+- ["a smaller white truck" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['a truck is present', 'a smaller white truck']
+Similarities contra: [[0.3512802720069885, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck is present.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is located on the side of the road.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is situated on the side of the road, visible to passing traffic.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a semi truck is present"
+
+For Contradictory Descriptions:
+- ["a white truck trailer" (Description 1), "a semi truck with a sign on the side of it" (Description 2)]
+
+For Unique Descriptions:
+- "a smaller white truck trailer" (Description 1)
+Reliable list: ['a semi truck is present', 'a white truck trailer', 'a smaller white truck trailer']
+Similarities contra: [[0.495239719748497, 0.4710839092731476]]
+Similarities unique: [0.4279225468635559]
+Final Caption: A semi truck is present, featuring a white truck trailer attached to it, with a sign on the side of the truck.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a truck is present"
+
+For Contradictory Descriptions:
+- ["a smaller white truck" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['a truck is present', 'a smaller white truck']
+Similarities contra: [[0.3512802720069885, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck is present.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is located on the side of the road.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is situated on the side of the road, visible to passing traffic.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a semi truck is present"
+
+For Contradictory Descriptions:
+- ["a white truck trailer" (Description 1), "a semi truck with a sign on the side of it" (Description 2)]
+
+For Unique Descriptions:
+- "a smaller white truck trailer" (Description 1)
+Reliable list: ['a semi truck is present', 'a white truck trailer', 'a smaller white truck trailer']
+Similarities contra: [[0.495239719748497, 0.4710839092731476]]
+Similarities unique: [0.4279225468635559]
+Final Caption: A semi truck is present, featuring a white truck trailer attached to it, with a sign on the side of the truck.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a truck is present"
+
+For Contradictory Descriptions:
+- ["a smaller white truck" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['a truck is present', 'a smaller white truck']
+Similarities contra: [[0.3512802720069885, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck is present.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is located on the side of the road.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is situated on the side of the road, visible to passing traffic.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a semi truck is present"
+
+For Contradictory Descriptions:
+- ["a white truck trailer" (Description 1), "a semi truck with a sign on the side of it" (Description 2)]
+
+For Unique Descriptions:
+- "a smaller white truck trailer" (Description 1)
+Reliable list: ['a semi truck is present', 'a white truck trailer', 'a smaller white truck trailer']
+Similarities contra: [[0.495239719748497, 0.4710839092731476]]
+Similarities unique: [0.4279225468635559]
+Final Caption: A semi truck is present, featuring a white truck trailer attached to it, with a sign on the side of the truck.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a truck is present"
+
+For Contradictory Descriptions:
+- ["a smaller white truck" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['a truck is present', 'a smaller white truck']
+Similarities contra: [[0.3512802720069885, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck is present.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is located on the side of the road.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is situated on the side of the road, visible to passing traffic.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a semi truck is present"
+
+For Contradictory Descriptions:
+- ["a white truck trailer" (Description 1), "a semi truck with a sign on the side of it" (Description 2)]
+
+For Unique Descriptions:
+- "a smaller white truck trailer" (Description 1)
+Reliable list: ['a semi truck is present', 'a white truck trailer', 'a smaller white truck trailer']
+Similarities contra: [[0.495239719748497, 0.4710839092731476]]
+Similarities unique: [0.4279225468635559]
+Final Caption: A semi truck is present, featuring a white truck trailer attached to it, with a sign on the side of the truck.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a truck is present"
+
+For Contradictory Descriptions:
+- ["a smaller white truck" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['a truck is present', 'a smaller white truck']
+Similarities contra: [[0.3512802720069885, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck is present.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is located on the side of the road.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is situated on the side of the road, visible to passing traffic.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a semi truck is present"
+
+For Contradictory Descriptions:
+- ["a white truck trailer" (Description 1), "a semi truck with a sign on the side of it" (Description 2)]
+
+For Unique Descriptions:
+- "a smaller white truck trailer" (Description 1)
+Reliable list: ['a semi truck is present', 'a white truck trailer', 'a smaller white truck trailer']
+Similarities contra: [[0.495239719748497, 0.4710839092731476]]
+Similarities unique: [0.4279225468635559]
+Final Caption: A semi truck is present, featuring a white truck trailer attached to it, with a sign on the side of the truck.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a truck is present"
+
+For Contradictory Descriptions:
+- ["a smaller white truck" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['a truck is present', 'a smaller white truck']
+Similarities contra: [[0.3512802720069885, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck is present.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is located on the side of the road.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is situated on the side of the road, visible to passing traffic.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a semi truck is present"
+
+For Contradictory Descriptions:
+- ["a white truck trailer" (Description 1), "a semi truck with a sign on the side of it" (Description 2)]
+
+For Unique Descriptions:
+- "a smaller white truck trailer" (Description 1)
+Reliable list: ['a semi truck is present', 'a white truck trailer', 'a smaller white truck trailer']
+Similarities contra: [[0.495239719748497, 0.4710839092731476]]
+Similarities unique: [0.4279225468635559]
+Final Caption: A semi truck is present, featuring a white truck trailer attached to it, with a sign on the side of the truck.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a truck is present"
+
+For Contradictory Descriptions:
+- ["a smaller white truck" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['a truck is present', 'a smaller white truck']
+Similarities contra: [[0.3512802720069885, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck is present.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is located on the side of the road.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "A truck is on the side of the road."
+
+For Contradictory Descriptions:
+- ["a smaller white truck trailer" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['A truck is on the side of the road.', 'a smaller white truck trailer']
+Similarities contra: [[0.4279225468635559, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck trailer is situated on the side of the road, visible to passing traffic.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a semi truck is present"
+
+For Contradictory Descriptions:
+- ["a white truck trailer" (Description 1), "a semi truck with a sign on the side of it" (Description 2)]
+
+For Unique Descriptions:
+- "a smaller white truck trailer" (Description 1)
+Reliable list: ['a semi truck is present', 'a white truck trailer', 'a smaller white truck trailer']
+Similarities contra: [[0.495239719748497, 0.4710839092731476]]
+Similarities unique: [0.4279225468635559]
+Final Caption: A semi truck is present, featuring a white truck trailer attached to it, with a sign on the side of the truck.
+
+
+
+Description1: a smaller white truck trailer
+Description2: a semi truck with a sign on the side of it
+
+For Similar Descriptions:
+- Group 1 Combined Description: "a truck is present"
+
+For Contradictory Descriptions:
+- ["a smaller white truck" (Description 1), "a semi truck" (Description 2)]
+
+For Unique Descriptions:
+- "a sign on the side of it" (Description 2)
+Reliable list: ['a truck is present', 'a smaller white truck']
+Similarities contra: [[0.3512802720069885, 0.34988513588905334]]
+Similarities unique: [0.1947582559660077]
+Final Caption: A smaller white truck is present.
+
+
+

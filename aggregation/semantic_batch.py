@@ -1,6 +1,6 @@
 from PIL import Image
 import requests
-from transformers import AutoProcessor, AutoModel
+from transformers import AutoProcessor, AutoModel, pipeline
 import torch
 import transformers
 from icecream import ic
@@ -770,7 +770,7 @@ class fusion:
             """
 
         prompt=[]
-        for i in range(len(region_descriptions)-1):
+        for i in range(len(region_descriptions)):
             user=f"""
             ### Your Task:
             Generate a caption that accurately reflects the most reliable information from the provided infromation, ensuring that no contradictory information is included. Do not include any explanations or thought processes, directly output the final caption without any prefixes.
@@ -796,10 +796,202 @@ class fusion:
             prompt.append(text)
         sampling_params = SamplingParams(temperature=0.6, top_p=0.9,max_tokens=4096,stop_token_ids=[self.tokenizer.eos_token_id, self.tokenizer.convert_tokens_to_ids("<|eot_id|>")])
       
-        output = self.llm.generate(prompt, sampling_params)
+        output = self.llm.generate(prompt, sampling_params, use_tqdm=False)
         # generated_text= output[0].outputs[0].text
         
         return output
+
+    def batch_merge_sameregion_modified(self,region_descriptions,supplement, temp=0.6, max_tokens=4096, top_p=0.9):
+        system = """
+            You are a language model tasked with generating a coherent, detailed, and hallucination-free description based on the visual content of three areas. You are provided with detailed descriptions of these areas along with a list of reliable details. Your goal is to combine the information from all descriptions and the reliable content list to generate a unified, precise description that accurately represents the merged content of the areas.
+
+            ### Information Provided:
+
+            1. **Area Descriptions**:
+            - Description 1: {description1}
+            - Description 2: {description2}
+            - Description 3: {description3}
+
+            2. **Reliable Content List**:
+            - A list of highly reliable and consistent details extracted from all three descriptions:
+                - {reliable_content_list}
+
+            ### Instructions:
+
+            - **Step 1**: Start by using the reliable content list as the foundation for the final description. Only use the details from this list as a trustworthy base, ensuring consistency throughout.
+
+            - **Step 2**: Cross-reference the three area descriptions and selectively incorporate relevant details to enhance the description. Ensure that only well-supported and confirmed information is added, and avoid introducing any uncertain or speculative content.
+
+            - **Step 3**: Generate the final, highly detailed description. Make sure that the description includes as much information as possible, but it must be entirely based on the provided descriptions and reliable content list. Do not add any details that are uncertain or cannot be verified by the provided information.
+
+            - **Step 4**: Ensure the final description is clear, coherent, free of contradictions or hallucinations, and avoids any speculative or unconfirmed information.
+
+            Directly output the final, polished description without any additional commentary.
+
+            ### Example Scenario:
+
+
+            #### **Area Descriptions**:
+            - **Description 1**: "The park is filled with lush greenery. There are children playing near the fountain at the center. A few adults are sitting on the benches nearby, chatting with each other. To the right, a group of people is gathered around a food cart, where a man is serving ice cream. The weather is sunny, and the sky is clear."
+            - **Description 2**: "In the park, several children are running around near the large fountain, which is surrounded by a stone pathway. On the left side, there are a few benches, and adults are sitting and talking. Near the pathway, there is an ice cream cart with a small line of people waiting to buy snacks."
+            - **Description 3**: "The park is full of life, with children playing near the fountain in the middle. The fountain is large and has water spraying from its top. Some adults are sitting on benches near the trees, while others are walking around the fountain. A food cart stands near the path, and the sky is bright blue."
+
+            #### **Reliable Content List**:
+            ['The park has a fountain in the center, surrounded by children playing.','There are benches with adults sitting and chatting.','There is a food cart near the fountain, serving snacks.','The weather is sunny, with clear skies.']
+
+            ### Example output:
+            "The park is alive with activity, featuring a large fountain at its center, where children are seen running and playing joyfully. Surrounding the fountain, a stone pathway leads to several benches, where adults sit and chat in the shade. To the right of the fountain, a food cart serves snacks to a small line of people. The bright blue sky and sunny weather complete the vibrant and cheerful atmosphere of the park."
+            """
+
+        prompt=[]
+        for i in range(len(region_descriptions)):
+            user=f"""
+            ### Your Task:
+            Generate a caption that accurately reflects the most reliable information from the provided infromation, ensuring that no contradictory information is included. Do not include any explanations or thought processes, directly output the final caption without any prefixes.
+
+            #### Input:
+
+            **Area Descriptions**:
+            - Description 1: {region_descriptions[i][0]}
+            - Description 2: {region_descriptions[i][1]}
+            - Description 3: {region_descriptions[i][2]}
+            **Reliable Content List**:
+            - {supplement[i]}
+            """
+            messages = [
+                            {"role": "system", "content": system},
+                            {"role": "user", "content": user},
+                        ]
+            text = self.tokenizer.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=True
+            )
+            prompt.append(text)
+        # sampling_params = SamplingParams(temperature=0.6, top_p=0.3,max_tokens=4096,stop_token_ids=[self.tokenizer.eos_token_id, self.tokenizer.convert_tokens_to_ids("<|eot_id|>")])
+        sampling_params = SamplingParams(temperature=temp, top_p=top_p, max_tokens=max_tokens, seed=666, stop_token_ids=[self.tokenizer.eos_token_id, self.tokenizer.convert_tokens_to_ids("<|eot_id|>")])
+      
+        output = self.llm.generate(prompt, sampling_params, use_tqdm=False)
+        # generated_text= output[0].outputs[0].text
+        
+        return output
+    
+    def batch_merge_sameregion_modified_falcon(self,region_descriptions,supplement, temp=0.6, max_tokens=4096, top_p=0.9):
+        system = """
+            You are a language model tasked with generating a coherent, detailed, and hallucination-free description based on the visual content of three areas. You are provided with detailed descriptions of these areas along with a list of reliable details. Your goal is to combine the information from all descriptions and the reliable content list to generate a unified, precise description that accurately represents the merged content of the areas.
+
+            ### Information Provided:
+
+            1. **Area Descriptions**:
+            - Description 1: {description1}
+            - Description 2: {description2}
+            - Description 3: {description3}
+
+            2. **Reliable Content List**:
+            - A list of highly reliable and consistent details extracted from all three descriptions:
+                - {reliable_content_list}
+
+            ### Instructions:
+
+            - **Step 1**: Start by using the reliable content list as the foundation for the final description. Only use the details from this list as a trustworthy base, ensuring consistency throughout.
+
+            - **Step 2**: Cross-reference the three area descriptions and selectively incorporate relevant details to enhance the description. Ensure that only well-supported and confirmed information is added, and avoid introducing any uncertain or speculative content.
+
+            - **Step 3**: Generate the final, highly detailed description. Make sure that the description includes as much information as possible, but it must be entirely based on the provided descriptions and reliable content list. Do not add any details that are uncertain or cannot be verified by the provided information.
+
+            - **Step 4**: Ensure the final description is clear, coherent, free of contradictions or hallucinations, and avoids any speculative or unconfirmed information.
+
+            Directly output the final, polished description without any additional commentary.
+
+            ### Example Scenario:
+
+
+            #### **Area Descriptions**:
+            - **Description 1**: "The park is filled with lush greenery. There are children playing near the fountain at the center. A few adults are sitting on the benches nearby, chatting with each other. To the right, a group of people is gathered around a food cart, where a man is serving ice cream. The weather is sunny, and the sky is clear."
+            - **Description 2**: "In the park, several children are running around near the large fountain, which is surrounded by a stone pathway. On the left side, there are a few benches, and adults are sitting and talking. Near the pathway, there is an ice cream cart with a small line of people waiting to buy snacks."
+            - **Description 3**: "The park is full of life, with children playing near the fountain in the middle. The fountain is large and has water spraying from its top. Some adults are sitting on benches near the trees, while others are walking around the fountain. A food cart stands near the path, and the sky is bright blue."
+
+            #### **Reliable Content List**:
+            ['The park has a fountain in the center, surrounded by children playing.','There are benches with adults sitting and chatting.','There is a food cart near the fountain, serving snacks.','The weather is sunny, with clear skies.']
+
+            ### Example output:
+            "The park is alive with activity, featuring a large fountain at its center, where children are seen running and playing joyfully. Surrounding the fountain, a stone pathway leads to several benches, where adults sit and chat in the shade. To the right of the fountain, a food cart serves snacks to a small line of people. The bright blue sky and sunny weather complete the vibrant and cheerful atmosphere of the park."
+
+            Now process the following input:
+
+            """
+
+        prompt=[]
+        for i in range(len(region_descriptions)):
+            user=f"""
+            ### Your Task:
+            Generate a caption that accurately reflects the most reliable information from the provided infromation, ensuring that no contradictory information is included. Do not include any explanations or thought processes, directly output the final caption without any prefixes.
+
+            #### Input:
+
+            **Area Descriptions**:
+            - Description 1: {region_descriptions[i][0]}
+            - Description 2: {region_descriptions[i][1]}
+            - Description 3: {region_descriptions[i][2]}
+            **Reliable Content List**:
+            - {supplement[i]}
+            """
+            prompt.append(system+user)
+        
+        pipe = pipeline(
+            "text-generation",
+            model=self.llm,
+            tokenizer=self.tokenizer,
+            eos_token_id=self.tokenizer.eos_token_id,
+        )
+
+        output = pipe(
+            prompt,
+            do_sample=True,
+            temperature=0.7
+        )
+        
+        return output
+
+    def batch_merge_sameregion_modified_8(self,region_descriptions,supplement, temp=0.6, max_tokens=4096, top_p=0.9):
+        system="""
+        You are a language model tasked with generating a coherent, detailed, and hallucination-free description based on the provided with facts list. Your goal is to combine the information from all descriptions to generate a unified final description. Only use the details from the list. Do not add any details that are uncertain or cannot be verified by the provided information. Ensure the final description is clear, coherent, free of contradictions or hallucinations, and avoids any speculative or unconfirmed information. Directly output the final, polished description without any additional commentary.
+
+        ### Example:
+        #### Facts List:
+        ['A car is parked in front of a house','red car','a house']
+
+        ### Output:
+        "A red car is parked in front of a house"
+        """
+        prompt=[]
+        for i in range(len(region_descriptions)):
+            user=f"""
+            ### Your Task:
+            Generate a caption that accurately reflects the most reliable information from the provided information. Do not include any explanations or thought processes, directly output the final caption without any prefixes.
+
+            #### Input:
+            **Facts List**:
+            {supplement[i]}
+            """
+            messages = [
+                            {"role": "system", "content": system},
+                            {"role": "user", "content": user},
+                        ]
+            text = self.tokenizer.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=True
+            )
+            prompt.append(text)
+        # sampling_params = SamplingParams(temperature=0.6, top_p=0.3,max_tokens=4096,stop_token_ids=[self.tokenizer.eos_token_id, self.tokenizer.convert_tokens_to_ids("<|eot_id|>")])
+        sampling_params = SamplingParams(temperature=temp, top_p=top_p, max_tokens=max_tokens, seed=666, stop_token_ids=[self.tokenizer.eos_token_id, self.tokenizer.convert_tokens_to_ids("<|eot_id|>")])
+      
+        output = self.llm.generate(prompt, sampling_params, use_tqdm=False)
+        # generated_text= output[0].outputs[0].text
+        
+        return output
+
     def merge_sameregion(self,description1,description2,description3,supplement):
         system = """
             You are a language model tasked with generating a coherent, detailed, and hallucination-free description based on the visual content of three areas. You are provided with detailed descriptions of these areas along with a list of reliable details. Your goal is to combine the information from all descriptions and the reliable content list to generate a unified, precise description that accurately represents the merged content of the areas.
@@ -867,10 +1059,84 @@ class fusion:
         tokenize=False,
         add_generation_prompt=True
         )
+        output = self.llm.generate([text], sampling_params, use_tqdm=False)
+        generated_text= output[0].outputs[0].text
+        
+        return generated_text
+
+    def merge_sameregion_modified(self,description1,description2,description3,supplement):
+        system = """
+            You are a language model tasked with generating a coherent, detailed, and hallucination-free description based on the visual content of three areas. You are provided with detailed descriptions of these areas along with a list of reliable details. Your goal is to combine the information from all descriptions and the reliable content list to generate a unified, precise description that accurately represents the merged content of the areas.
+
+            ### Information Provided:
+
+            1. **Area Descriptions**:
+            - Description 1: {description1}
+            - Description 2: {description2}
+            - Description 3: {description3}
+
+            2. **Reliable Content List**:
+            - A list of highly reliable and consistent details extracted from all three descriptions:
+                - {reliable_content_list}
+
+            ### Instructions:
+
+            - **Step 1**: Start by using the reliable content list as the foundation for the final description. Only use the details from this list as a trustworthy base, ensuring consistency throughout.
+
+            - **Step 2**: Cross-reference the three area descriptions and selectively incorporate relevant details to enhance the description. Ensure that only well-supported and confirmed information is added, and avoid introducing any uncertain or speculative content.
+
+            - **Step 3**: Generate the final, highly detailed description. Make sure that the description includes as much information as possible, but it must be entirely based on the provided descriptions and reliable content list. Do not add any details that are uncertain or cannot be verified by the provided information.
+
+            - **Step 4**: Ensure the final description is clear, coherent, free of contradictions or hallucinations, and avoids any speculative or unconfirmed information.
+
+            Directly output the final, polished description without any additional commentary.
+
+            ### Example Scenario:
+
+
+            #### **Area Descriptions**:
+            - **Description 1**: "The park is filled with lush greenery. There are children playing near the fountain at the center. A few adults are sitting on the benches nearby, chatting with each other. To the right, a group of people is gathered around a food cart, where a man is serving ice cream. The weather is sunny, and the sky is clear."
+            - **Description 2**: "In the park, several children are running around near the large fountain, which is surrounded by a stone pathway. On the left side, there are a few benches, and adults are sitting and talking. Near the pathway, there is an ice cream cart with a small line of people waiting to buy snacks."
+            - **Description 3**: "The park is full of life, with children playing near the fountain in the middle. The fountain is large and has water spraying from its top. Some adults are sitting on benches near the trees, while others are walking around the fountain. A food cart stands near the path, and the sky is bright blue."
+
+            #### **Reliable Content List**:
+            ['The park has a fountain in the center, surrounded by children playing.','There are benches with adults sitting and chatting.','There is a food cart near the fountain, serving snacks.','The weather is sunny, with clear skies.']
+
+            ### Example output:
+            "The park is alive with activity, featuring a large fountain at its center, where children are seen running and playing joyfully. Surrounding the fountain, a stone pathway leads to several benches, where adults sit and chat in the shade. To the right of the fountain, a food cart serves snacks to a small line of people. The bright blue sky and sunny weather complete the vibrant and cheerful atmosphere of the park."
+            """
+
+        user=f"""
+            ### Your Task:
+            Generate a caption that accurately reflects the most reliable information from the provided infromation, ensuring that no contradictory information is included. Do not include any explanations or thought processes, directly output the final caption without any prefixes.
+
+            #### Input:
+
+            **Area Descriptions**:
+            - Description 1: {description1}
+            - Description 2: {description2}
+            - Description 3: {description3}
+
+
+            **Reliable Content List**:
+            - {supplement}
+            """
+        messages = [
+                        {"role": "system", "content": system},
+                        {"role": "user", "content": user},
+                    ]
+        # sampling_params = SamplingParams(temperature=0.6, top_p=0.9,max_tokens=4096,stop_token_ids=[self.tokenizer.eos_token_id, self.tokenizer.convert_tokens_to_ids("<|eot_id|>")])
+        sampling_params = SamplingParams(temperature=0.1, top_p=0.3,max_tokens=4096,stop_token_ids=[self.tokenizer.eos_token_id, self.tokenizer.convert_tokens_to_ids("<|eot_id|>")])
+        text = self.tokenizer.apply_chat_template(
+        messages,
+        tokenize=False,
+        add_generation_prompt=True
+        )
         output = self.llm.generate([text], sampling_params)
         generated_text= output[0].outputs[0].text
         
         return generated_text
+
     def batch_merge_mainbox(self,region_descriptions,main_des):
         system = """
     ### Input ###
@@ -1240,7 +1506,7 @@ class fusion:
         generated_text= output[0].outputs[0].text
         
         return generated_text
-    def batch_group_sameregion_sentence_main(self,region_descriptions):
+    def batch_group_sameregion_sentence_main(self,region_descriptions):     # semantic filtering
         system = """
         You are a language modeler tasked with analyzing three passages describing the same area of a picture. Your goal is to process these descriptions step by step, reasoning through each task logically and systematically. Please follow the steps outlined below and directly output the final results of Step 4 without providing explanations or additional words.
 
@@ -1322,7 +1588,7 @@ class fusion:
         # generated_text= output[0].outputs[0].text
         
         return output
-    def batch_group_sameregion_sentence(self,region_descriptions):
+    def batch_group_sameregion_sentence(self,region_descriptions):      # semantic filtering
         system = """
         You are a language modeler tasked with analyzing three passages describing the same area of a picture. Your goal is to process these descriptions step by step, reasoning through each task logically and systematically. Please follow the steps outlined below and directly output the final results of Step 4 without providing explanations or additional words.
 
@@ -1377,7 +1643,7 @@ class fusion:
 
         """
         prompt=[]
-        for i in range(len(region_descriptions)-1):
+        for i in range(len(region_descriptions)):
             user=f"""
                         ###Description 1: {region_descriptions[i][0]}
 
@@ -1399,10 +1665,374 @@ class fusion:
             prompt.append(text)
         sampling_params = SamplingParams(temperature=0.2, top_p=0.9,max_tokens=4096,stop_token_ids=[self.tokenizer.eos_token_id, self.tokenizer.convert_tokens_to_ids("<|eot_id|>")])
         
-        output = self.llm.generate(prompt, sampling_params)
+        output = self.llm.generate(prompt, sampling_params, use_tqdm=False)
         # generated_text= output[0].outputs[0].text
         
         return output
+
+    def batch_group_sameregion_sentence_modified(self,region_descriptions, temp=0.2, max_tokens=4096, top_p=0.9):
+        # system = """
+        # You are a language modeler tasked with analyzing three passages describing the same area of a picture. Your goal is to process these descriptions step by step, reasoning through each task logically and systematically. Please follow the steps outlined below and directly output the final results of Step 4 without providing explanations or additional words.
+
+        # Guidelines:
+
+        # - Step 1: Identifying Similar Descriptions
+        # 1. Compare the descriptions to identify sentences that describe the same object, relationship, or action using semantic similarity and context.
+        # 2. Only group sentences as "similar descriptions" if they appear in at least **two or more** passages. If a description only appears in one passage, it should not be included in this group.
+        # 3. Combine these similar descriptions into a coherent single sentence.
+        # 4. **Important**: Once a description is grouped into the "similar descriptions" category, it should *not* appear again in the "contradictory descriptions" category.
+
+        # - Step 2: Identifying Contradictory Descriptions
+        # 1. Find sentences that describe the same object but provide conflicting attributes (e.g., color, size, or action). 
+        # 2. Ensure that if a sentence describes an object or attribute that is not mentioned in the other descriptions, it should *not* be considered contradictory. Instead, this sentence should be moved to the unique descriptions category.
+        # 3. Sentences already grouped under "similar descriptions" should not be included in contradictory descriptions.
+        # 4. Present only sentences that describe the same object and attribute but provide conflicting information in pairs, as they are, without modification.
+
+        # - Step 3: Identifying Unique Descriptions
+        # 1. Identify any sentence that describes an object or detail not mentioned in the other passages or that only appears in one passage.
+        # 2. List these unique descriptions along with their respective passage.
+
+        # - Step 4: Synthesizing and Refining the Output
+        # 1. For similar descriptions: Merge into a single sentence that captures the shared semantics.
+        # 2. For contradictory descriptions: Present them as pairs, showing the conflicting information from different passages.
+        # 3. For unique descriptions: List the unique details from each passage.
+
+        # Remember to directly output the final results of Step 4 without displaying other words.
+
+        # ### Example:
+
+        # ###Input Descriptions:
+
+        # Description 1: "A tall man in a black suit is standing under a large oak tree. The sun is setting, casting an orange glow over the landscape. The sky is clear with a few scattered clouds. A woman in a red dress is walking along a dirt path, and a dog runs playfully in the grass nearby."
+
+        # Description 2: "A man wearing a dark suit stands beneath an old oak tree as the sun sets. The sky is filled with vibrant orange and pink hues. In the distance, a woman in a red dress strolls down a dirt path, and a brown dog plays in the grassy field next to her."
+
+        # Description 3: "A man in a dark suit stands under a large tree at sunset. The sky is mostly cloudy with patches of color. A woman in a red dress walks along a path, and a dog is seen playing nearby."
+
+        # ###Output:
+
+        # For Similar Descriptions:
+        # - Group 1 Combined Description: "A man in a dark suit is standing under a large tree as the sun sets."
+        # - Group 2 Combined Description: "A woman in a red dress is walking along a dirt path."
+        # - Group 3 Combined Description: "A dog is playing in the grass."
+
+
+        # For Contradictory Descriptions:
+        # - ["The sky is clear with a few scattered clouds." (Description 1), "The sky is filled with vibrant orange and pink hues." (Description 2), "The sky is mostly cloudy with patches of color." (Description 3)]
+
+        # For Unique Descriptions:
+        # - "The sun is casting an orange glow over the landscape." (Description 1)
+
+        # """
+
+        # Prompt1
+        system="""  
+        You are given two descriptions. Compare them and produce a structured output with three sections: Overlapping Facts, Contradictory Facts, and Unique Facts. Follow these rules:
+
+        1. Overlapping Facts:
+        Include only facts explicitly or implicitly present in both descriptions, referring to the same object, relationship, or action.
+        If one description is more specific, keep only the shared portion unless both support the specificity.
+        Ignore facts that appear in only one description.
+        Combine overlapping facts into a single concise sentence.
+        Exclude all appearance related attributes (e.g., colors, texture, brightness)
+        Leave empty if none exist.
+
+        2. Contradictory Facts:
+        Include facts describing the same object with conflicting attributes (e.g., size, action).
+        Only consider attributes mentioned in both descriptions.
+        Present contradictions in pairs exactly as stated.
+        Exclude all appearance related attributes (e.g., colors, texture, brightness)
+        Leave empty if none exist.
+
+        3. Unique Facts:
+        Include facts that appear in only one description.
+        Label each fact with its source description (1 or 2) if fact exist.
+        Exclude all appearance related attributes (e.g., colors, texture, brightness)
+        Leave empty if none exist.
+
+        Follow the output template of the example. Example 1:
+        Input:
+        Description 1: "The red car is parked in front of the house"
+        Description 2: "A blue car is parked in front of a house with big windows"
+
+        Output:
+        For Similar Facts:
+        - Group 1 Combined Description: "A car is parked in front of a house"
+
+        For Contradictory Facts:
+        - ["red car" (Description 1), "blue car" (Description 2)]
+
+        For Unique Facts:
+        - "house with big windows" (Description 2)
+
+        Example 2:
+        Input:
+        Description 1: "A palm tree"
+        Description 2: "Pedestrian on the street"
+
+        Output:
+        For Similar Facts:
+        - Group 1 Combined Description: None
+
+        For Contradictory Facts:
+        - []
+
+        For Unique Facts:
+        - "A palm tree" (Description 1)
+        - "Pedestrian on the street" (Description 2)
+        """
+        prompt=[]
+        for i in range(len(region_descriptions)):
+            user=f"""
+                        ###Description 1: {region_descriptions[i][0]}
+
+                        ###Description 2: {region_descriptions[i][1]}
+
+                        ###Description 2: {region_descriptions[i][2]}
+
+                        Please directly output the final results of Step 4 without displaying the intermediate steps, strictly follow the example output and do not include any additional comments..
+                        """
+            messages = [
+                            {"role": "system", "content": system},
+                            {"role": "user", "content": user},
+                        ]
+            text = self.tokenizer.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=True
+            )
+            prompt.append(text)
+        sampling_params = SamplingParams(temperature=temp, top_p=top_p, max_tokens=max_tokens, seed=666, stop_token_ids=[self.tokenizer.eos_token_id, self.tokenizer.convert_tokens_to_ids("<|eot_id|>")])
+        
+        output = self.llm.generate(prompt, sampling_params, use_tqdm=False)
+        # generated_text= output[0].outputs[0].text
+        
+        return 
+        
+    def batch_group_sameregion_sentence_modified_falcon(self,region_descriptions, temp=0.2, max_tokens=4096, top_p=0.9):
+        system = """
+        You are a language modeler tasked with analyzing three passages describing the same area of a picture. Your goal is to process these descriptions step by step, reasoning through each task logically and systematically. Please follow the steps outlined below and directly output the final results of Step 4 without providing explanations or additional words.
+
+        Guidelines:
+
+        - Step 1: Identifying Similar Descriptions
+        1. Compare the descriptions to identify sentences that describe the same object, relationship, or action using semantic similarity and context.
+        2. Only group sentences as "similar descriptions" if they appear in at least **two or more** passages. If a description only appears in one passage, it should not be included in this group.
+        3. Combine these similar descriptions into a coherent single sentence.
+        4. **Important**: Once a description is grouped into the "similar descriptions" category, it should *not* appear again in the "contradictory descriptions" category.
+
+        - Step 2: Identifying Contradictory Descriptions
+        1. Find sentences that describe the same object but provide conflicting attributes (e.g., color, size, or action). 
+        2. Ensure that if a sentence describes an object or attribute that is not mentioned in the other descriptions, it should *not* be considered contradictory. Instead, this sentence should be moved to the unique descriptions category.
+        3. Sentences already grouped under "similar descriptions" should not be included in contradictory descriptions.
+        4. Present only sentences that describe the same object and attribute but provide conflicting information in pairs, as they are, without modification.
+
+        - Step 3: Identifying Unique Descriptions
+        1. Identify any sentence that describes an object or detail not mentioned in the other passages or that only appears in one passage.
+        2. List these unique descriptions along with their respective passage.
+
+        - Step 4: Synthesizing and Refining the Output
+        1. For similar descriptions: Merge into a single sentence that captures the shared semantics.
+        2. For contradictory descriptions: Present them as pairs, showing the conflicting information from different passages.
+        3. For unique descriptions: List the unique details from each passage.
+
+        Remember to directly output the final results of Step 4 without displaying other words.
+
+        ### Example:
+
+        ###Input Descriptions:
+
+        Description 1: "A tall man in a black suit is standing under a large oak tree. The sun is setting, casting an orange glow over the landscape. The sky is clear with a few scattered clouds. A woman in a red dress is walking along a dirt path, and a dog runs playfully in the grass nearby."
+
+        Description 2: "A man wearing a dark suit stands beneath an old oak tree as the sun sets. The sky is filled with vibrant orange and pink hues. In the distance, a woman in a red dress strolls down a dirt path, and a brown dog plays in the grassy field next to her."
+
+        Description 3: "A man in a dark suit stands under a large tree at sunset. The sky is mostly cloudy with patches of color. A woman in a red dress walks along a path, and a dog is seen playing nearby."
+
+        ###Output:
+
+        For Similar Descriptions:
+        - Group 1 Combined Description: "A man in a dark suit is standing under a large tree as the sun sets."
+        - Group 2 Combined Description: "A woman in a red dress is walking along a dirt path."
+        - Group 3 Combined Description: "A dog is playing in the grass."
+
+        For Contradictory Descriptions:
+        - ["The sky is clear with a few scattered clouds." (Description 1), "The sky is filled with vibrant orange and pink hues." (Description 2), "The sky is mostly cloudy with patches of color." (Description 3)]
+
+        For Unique Descriptions:
+        - "The sun is casting an orange glow over the landscape." (Description 1)
+
+
+        Now process the following input:
+
+        """
+
+        # # Prompt1
+        # system="""  
+        # You are given two descriptions. Compare them and produce a structured output with three sections: Overlapping Facts, Contradictory Facts, and Unique Facts. Follow these rules:
+
+        # 1. Overlapping Facts:
+        # Include only facts explicitly or implicitly present in both descriptions, referring to the same object, relationship, or action.
+        # If one description is more specific, keep only the shared portion unless both support the specificity.
+        # Ignore facts that appear in only one description.
+        # Combine overlapping facts into a single concise sentence.
+        # Exclude all appearance related attributes (e.g., colors, texture, brightness)
+        # Leave empty if none exist.
+
+        # 2. Contradictory Facts:
+        # Include facts describing the same object with conflicting attributes (e.g., size, action).
+        # Only consider attributes mentioned in both descriptions.
+        # Present contradictions in pairs exactly as stated.
+        # Exclude all appearance related attributes (e.g., colors, texture, brightness)
+        # Leave empty if none exist.
+
+        # 3. Unique Facts:
+        # Include facts that appear in only one description.
+        # Label each fact with its source description (1 or 2) if fact exist.
+        # Exclude all appearance related attributes (e.g., colors, texture, brightness)
+        # Leave empty if none exist.
+
+        # Follow the output template of the example. Example 1:
+        # Input:
+        # Description 1: "The red car is parked in front of the house"
+        # Description 2: "A blue car is parked in front of a house with big windows"
+
+        # Output:
+        # For Similar Facts:
+        # - Group 1 Combined Description: "A car is parked in front of a house"
+
+        # For Contradictory Facts:
+        # - ["red car" (Description 1), "blue car" (Description 2)]
+
+        # For Unique Facts:
+        # - "house with big windows" (Description 2)
+
+        # Example 2:
+        # Input:
+        # Description 1: "A palm tree"
+        # Description 2: "Pedestrian on the street"
+
+        # Output:
+        # For Similar Facts:
+        # - Group 1 Combined Description: None
+
+        # For Contradictory Facts:
+        # - []
+
+        # For Unique Facts:
+        # - "A palm tree" (Description 1)
+        # - "Pedestrian on the street" (Description 2)
+        # """
+        prompt=[]
+        for i in range(len(region_descriptions)):
+            user=f"""
+                        ###Description 1: {region_descriptions[i][0]}
+
+                        ###Description 2: {region_descriptions[i][1]}
+
+                        ###Description 3: {region_descriptions[i][2]}
+
+                        Please directly output the final results of Step 4 without displaying the intermediate steps, strictly follow the example output and do not include any additional comments..
+                        """
+            prompt.append(system+user)
+
+        pipe = pipeline(
+            "text-generation",
+            model=self.llm,
+            tokenizer=self.tokenizer,
+            eos_token_id=self.tokenizer.eos_token_id,
+        )
+
+        output = pipe(
+            prompt,
+            do_sample=True,
+            temperature=0.7
+        )
+        
+        return output
+
+    def batch_group_sameregion_sentence_modified_8(self,region_descriptions, temp=0.2, max_tokens=4096, top_p=0.9):
+        system="""  
+        You are given two descriptions. Compare them and produce a structured output with three sections: Overlapping Facts, Contradictory Facts, and Unique Facts. Follow these rules:
+
+        1. Overlapping Facts:
+        Include only facts explicitly or implicitly present in both descriptions, referring to the same object, relationship, or action.
+        If one description is more specific, keep only the shared portion unless both support the specificity.
+        Ignore facts that appear in only one description.
+        Combine overlapping facts into a single concise sentence.
+        Exclude all appearance related attributes (e.g., colors, texture, brightness)
+        Leave empty if none exist.
+
+        2. Contradictory Facts:
+        Include facts describing the same object with conflicting attributes (e.g., size, action).
+        Only consider attributes mentioned in both descriptions.
+        Present contradictions in pairs exactly as stated.
+        Exclude all appearance related attributes (e.g., colors, texture, brightness)
+        Leave empty if none exist.
+
+        3. Unique Facts:
+        Include facts that appear in only one description.
+        Label each fact with its source description (1 or 2) if fact exist.
+        Exclude all appearance related attributes (e.g., colors, texture, brightness)
+        Leave empty if none exist.
+
+        Follow the output template of the example. Example 1:
+        Input:
+        Description 1: "The red car is parked in front of the house"
+        Description 2: "A blue car is parked in front of a house with big windows"
+
+        Output:
+        For Similar Facts:
+        - Group 1 Combined Description: "A car is parked in front of a house"
+
+        For Contradictory Facts:
+        - ["red car" (Description 1), "blue car" (Description 2)]
+
+        For Unique Facts:
+        - "house with big windows" (Description 2)
+
+        Example 2:
+        Input:
+        Description 1: "A palm tree"
+        Description 2: "Pedestrian on the street"
+
+        Output:
+        For Similar Facts:
+        - Group 1 Combined Description: None
+
+        For Contradictory Facts:
+        - []
+
+        For Unique Facts:
+        - "A palm tree" (Description 1)
+        - "Pedestrian on the street" (Description 2)
+        """
+        prompt=[]
+        for i in range(len(region_descriptions)):
+            user=f"""
+                        ###Description 1: {region_descriptions[i][0]}
+
+                        ###Description 2: {region_descriptions[i][1]}
+
+                        Please directly output the final results of Step 4 without displaying the intermediate steps, strictly follow the example output and do not include any additional comments..
+                        """
+            messages = [
+                            {"role": "system", "content": system},
+                            {"role": "user", "content": user},
+                        ]
+            text = self.tokenizer.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=True
+            )
+            prompt.append(text)
+        sampling_params = SamplingParams(temperature=temp, top_p=top_p, max_tokens=max_tokens, seed=666, stop_token_ids=[self.tokenizer.eos_token_id, self.tokenizer.convert_tokens_to_ids("<|eot_id|>")])
+        
+        output = self.llm.generate(prompt, sampling_params, use_tqdm=False)
+        # generated_text= output[0].outputs[0].text
+        
+        return output
+
+
     def group_sameregion_sentence(self,description1,description2,description3):
             system = """
             You are a language modeler tasked with analyzing three passages describing the same area of a picture. Your goal is to process these descriptions step by step, reasoning through each task logically and systematically. Please follow the steps outlined below and directly output the final results of Step 4 without providing explanations or additional words.
@@ -1476,11 +2106,158 @@ class fusion:
             tokenize=False,
             add_generation_prompt=True
             )
+            output = self.llm.generate([text], sampling_params, use_tqdm=False)
+            generated_text= output[0].outputs[0].text
+            # print(f"Description1: {description1}")
+            # print(f"Description2: {description2}")
+            # print(f"Description3: {description3}")
+            return generated_text
+    
+    def group_sameregion_sentence_modified(self,description1,description2,description3):
+            # system = """
+            # You are a language modeler tasked with analyzing three passages describing the same area of a picture. Your goal is to process these descriptions step by step, reasoning through each task logically and systematically. Please follow the steps outlined below and directly output the final results of Step 4 without providing explanations or additional words.
+
+            # Guidelines:
+
+            # - Step 1: Identifying Similar Descriptions
+            # 1. Compare the descriptions to identify sentences that describe the same object, relationship, or action using semantic similarity and context.
+            # 2. Only group sentences as "similar descriptions" if they appear in at least **two or more passages**. 
+            # - Do NOT create a Similar Description by combining phrases from passages unless the same object or action appears in **two or more passages**.
+            # - If an object appears only in one passage, it should appear only under Unique Descriptions, even if you could “combine” it with a keyword from another passage.
+            # 3. Combine these descriptions under the similar group into a coherent single sentence.
+            # 4. **Important**: Once a description is grouped into the "similar descriptions" category, it should *not* appear again in the "contradictory descriptions" category.
+
+            # - Step 2: Identifying Contradictory Descriptions
+            # 1. Find sentences that describe the same object but provide conflicting attributes (e.g., color, size, or action). 
+            # 2. Ensure that if a sentence describes an object or attribute that is not mentioned in the other descriptions, it should *not* be considered contradictory. Instead, this sentence should be moved to the unique descriptions category.
+            # 3. Sentences already grouped under "similar descriptions" should not be included in contradictory descriptions.
+            # 4. Present only sentences that describe the same object and attribute but provide conflicting information in pairs, as they are, without modification.
+
+            # - Step 3: Identifying Unique Descriptions
+            # 1. Identify any sentence that describes an object or detail not mentioned in the other passages or that only appears in one passage.
+            # 2. List these unique descriptions along with their respective passage.
+            # 3. **Single-mention sentences must always appear only in this category.**
+
+            # - Step 4: Synthesizing and Refining the Output
+            # 1. For similar descriptions: Merge into a single sentence that captures the shared semantics.
+            # 2. For contradictory descriptions: Present them as pairs, showing the conflicting information from different passages.
+            # 3. For unique descriptions: List the unique details from each passage.
+            # 4. Do not create any description in a category if it does not logically belong there.
+
+            # ###Examples of edge cases:
+
+            # Example 1:
+            # Input Descriptions:
+            # Description 1: "trees"
+            # Description 2: "a car"
+            # Description 3: ""
+
+            # Output:
+            # For Similar Descriptions: None
+            # For Contradictory Descriptions: None
+            # For Unique Descriptions:
+            # - "trees" (Description 1)
+            # - "a car" (Description 2)
+
+            # Example 2:
+            # Input Descriptions:
+            # Description 1: "A red car is parked on the street."
+            # Description 2: "A red car is parked on the street."
+            # Description 3: "The street is empty."
+
+            # Output:
+            # For Similar Descriptions:
+            # - Group 1 Combined Description: "A red car is parked on the street."
+            # For Contradictory Descriptions: None
+            # For Unique Descriptions:
+            # - "The street is empty." (Description 3)
+
+            # Remember to directly output the final results of Step 4 without displaying other words.
+
+
+            # """
+
+            system = """
+            You are a language modeler tasked with analyzing three passages describing the same area of a picture. Your goal is to process these descriptions step by step, reasoning through each task logically and systematically. Please follow the steps outlined below and directly output the final results of Step 4 without providing explanations or additional words.
+
+            Guidelines:
+
+            - Step 1: Identifying Similar Descriptions
+            1. Compare the descriptions to identify sentences that describe the same object, relationship, or action using semantic similarity and context.
+            2. Only group sentences as "similar descriptions" if they appear in at least **two or more** passages. If a description only appears in one passage, it should not be included in this group.
+            3. Combine these similar descriptions into a coherent single sentence.
+            4. **Important**: Once a description is grouped into the "similar descriptions" category, it should *not* appear again in the "contradictory descriptions" category.
+
+            - Step 2: Identifying Contradictory Descriptions
+            1. Find sentences that describe the same object but provide conflicting attributes (e.g., color, size, or action). 
+            2. Ensure that if a sentence describes an object or attribute that is not mentioned in the other descriptions, it should *not* be considered contradictory. Instead, this sentence should be moved to the unique descriptions category.
+            3. Sentences already grouped under "similar descriptions" should not be included in contradictory descriptions.
+            4. Present only sentences that describe the same object and attribute but provide conflicting information in pairs, as they are, without modification.
+
+            - Step 3: Identifying Unique Descriptions
+            1. Identify any sentence that describes an object or detail not mentioned in the other passages or that only appears in one passage.
+            2. List these unique descriptions along with their respective passage.
+
+            - Step 4: Synthesizing and Refining the Output
+            1. For similar descriptions: Merge into a single sentence that captures the shared semantics.
+            2. For contradictory descriptions: Present them as pairs, showing the conflicting information from different passages.
+            3. For unique descriptions: List the unique details from each passage.
+
+            Remember to directly output the final results of Step 4 without displaying other words.
+
+            ### Example:
+
+            ###Input Descriptions:
+
+            Description 1: "A tall man in a black suit is standing under a large oak tree. The sun is setting, casting an orange glow over the landscape. The sky is clear with a few scattered clouds. A woman in a red dress is walking along a dirt path, and a dog runs playfully in the grass nearby."
+
+            Description 2: "A man wearing a dark suit stands beneath an old oak tree as the sun sets. The sky is filled with vibrant orange and pink hues. In the distance, a woman in a red dress strolls down a dirt path, and a brown dog plays in the grassy field next to her."
+
+            Description 3: "A man in a dark suit stands under a large tree at sunset. The sky is mostly cloudy with patches of color. A woman in a red dress walks along a path, and a dog is seen playing nearby."
+
+            ###Output:
+
+            For Similar Descriptions:
+            - Group 1 Combined Description: "A man in a dark suit is standing under a large tree as the sun sets."
+            - Group 2 Combined Description: "A woman in a red dress is walking along a dirt path."
+            - Group 3 Combined Description: "A dog is playing in the grass."
+
+
+            For Contradictory Descriptions:
+            - ["The sky is clear with a few scattered clouds." (Description 1), "The sky is filled with vibrant orange and pink hues." (Description 2), "The sky is mostly cloudy with patches of color." (Description 3)]
+
+            For Unique Descriptions:
+            - "The sun is casting an orange glow over the landscape." (Description 1)
+
+            """
+            user=f"""
+                        ###Description 1: {description1}
+
+                        ###Description 2: {description2}
+
+                        ###Description 2: {description3}
+
+                        Please directly output the final results of Step 4 without displaying the intermediate steps, strictly follow the example output and do not include any additional comments..
+                        """
+            messages = [
+                            {"role": "system", "content": system},
+                            {"role": "user", "content": user},
+                        ]
+            # sampling_params = SamplingParams(temperature=0.2, top_p=0.9,max_tokens=4096,stop_token_ids=[self.tokenizer.eos_token_id, self.tokenizer.convert_tokens_to_ids("<|eot_id|>")])
+            sampling_params = SamplingParams(temperature=0.1, top_p=0.3,max_tokens=4096,stop_token_ids=[self.tokenizer.eos_token_id, self.tokenizer.convert_tokens_to_ids("<|eot_id|>")])
+            text = self.tokenizer.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=True
+            )
             output = self.llm.generate([text], sampling_params)
             generated_text= output[0].outputs[0].text
-            
+            # print(f"Description1: {description1}")
+            # print(f"Description2: {description2}")
+            # print(f"Description3: {description3}")
             return generated_text
-    def batch_merge_main(self,image_idx):
+    
+    def batch_merge_main(self,image_idx):   # intra patch
     
             
                 # image_src = Image.open('/data/users/ruotian_peng/dataset/mmvp/MMVP Images/'+data['image'].split('/')[-1]).convert('RGB')
@@ -1576,9 +2353,9 @@ class fusion:
                     supplement_unique.append(categories['For Unique Triples'][i])
                     supplement_all.append(re.sub(r'\s*\(Description \d+\)', '', categories['For Unique Triples'][i]))
             batch_supple.append(supplement_all)
-        batch_real_mainbox=self.batch_merge_sameregion_main(image_idx,batch_supple)
+        batch_real_mainbox=self.batch_merge_sameregion_main(image_idx,batch_supple)     # merge into single description
 
-        global_modified=self.batch_merge_mainbox(image_idx,batch_real_mainbox)
+        global_modified=self.batch_merge_mainbox(image_idx,batch_real_mainbox)      # modify and enhance the merged description
         return global_modified
     def batch_cal_main(self,image_idx):
        
@@ -1660,7 +2437,7 @@ class fusion:
         else:
             return image_idx['global']
 
-    def merge(self,image_idx,num):
+    def merge(self,image_idx,num):      # inter patch
         # llama2_7b_chat_hf="/data/users/ruotian_peng/pretrain/llama-3.1-8b-instruct"
         # llm = LLM(model=llama2_7b_chat_hf,max_model_len=40000,tensor_parallel_size=1,gpu_memory_utilization=0.85)
         # tokenizer = AutoTokenizer.from_pretrained(llama2_7b_chat_hf)
@@ -1859,7 +2636,7 @@ class fusion:
             output=self.batch_group_sameregion_sentence(region_descriptions)
             batch_supplement_all=[]
             for region_number in range(len(region_descriptions)-1):
-                temp_group=output[region_number].outputs[0].text
+                temp_group=output[region_number].outputs[0].text        # process grouped descriptions
                 # region_dict_temp={'1': region_dict[str(number_iou)][0],'2': region_dict[str(number_iou)][1]}
                 # print(temp_group)
                 categories = {

@@ -37,7 +37,8 @@ class BLIPScore():
     def load_model(self):
         error = None
         try:
-            self.model, self.vis_processors, self.text_processors = load_model_and_preprocess(name='blip_image_text_matching',model_type='large',device=self.device,is_eval=True)
+            # self.model, self.vis_processors, self.text_processors = load_model_and_preprocess(name='blip_image_text_matching',model_type='large',device=self.device,is_eval=True)
+            self.model, self.vis_processors, self.text_processors = load_model_and_preprocess(name='blip_image_text_matching',model_type='base',device=self.device,is_eval=True)
             return error
         except Exception as e:
             error = "Error loading model: {}".format(e)
@@ -52,6 +53,15 @@ class BLIPScore():
         except Exception as e:
             error = str(e)
         return image_processed, error
+    
+    def process_images_batch(self, images):
+        error = None
+        try:
+            imgs = [self.vis_processors["eval"](img) for img in images]
+        except Exception as e:
+            error = str(e)
+        return torch.stack(imgs).to(self.device), error
+
 
     def rank_captions(self, img, caption):
         score = None
@@ -70,6 +80,32 @@ class BLIPScore():
         except Exception as e:
             error = str(e)
         return score,error
+
+    # @torch.no_grad()
+    def rank_captions_batch(self, imgs, captions):
+        """
+        imgs: Tensor [B, 3, H, W]
+        captions: list[str] length B
+        """
+        error = None
+        # try:
+        txts = [self.text_processors["eval"](c) for c in captions]
+
+        itm_output = self.model(
+            {"image": imgs, "text_input": txts},
+            match_head="itm"
+        )
+        itm_scores = torch.softmax(itm_output, dim=1)[:, 1]
+
+        itc_scores = self.model(
+            {"image": imgs, "text_input": txts},
+            match_head="itc"
+        )[:, 0]
+
+        scores = (itm_scores + itc_scores) / 2
+        # except Exception as e:
+        #     error = str(e)
+        return scores.cpu().tolist(), error
 
 def get_parser():
     parser = argparse.ArgumentParser(description="Process images and generate descriptions using Llava model")
